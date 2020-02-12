@@ -18,12 +18,13 @@
 ```rb
 class ObscuringReferences
   attr_reader :data
+
   def initialize(data)
     @data = data
   end
+
   def diameters
-  # 0はリム、1はタイヤ
-  data.collect {|cell|10cell[0] + (cell[1] * 2)}
+  data.collect {|cell|10cell[0] + (cell[1] * 2)} # 0はリム、1はタイヤ
   end
   # ... インデックスで配列の値を参照するメソッドがほかにもたくさん
 ```
@@ -35,18 +36,21 @@ class ObscuringReferences
 ```rb
 class RevealingReferences
   attr_reader :wheels
+  
   def initialize(data)
     @wheels = wheelify(data)
   end
+
   def diameters
     wheels.collect {|wheel| wheel.rim + (wheel.tire * 2
   end
+  
   # ... これでだれでもwheelにrim/tireを送れる
   Wheel = Struct.new(:rim, :tire)
   def wheelify(data)
     data.collect {|cell| Wheel.new(cell[0], cell[1])}
   end
-end 
+end
 ```
 こうすることで、引数のデータ構造に依存する箇所を一箇所にできる
 => 複雑なデータ構造をclassが受け取ることを強いられる場合は、そのデータ構造の認識する振る舞いを外だししてやる
