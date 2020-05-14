@@ -1,3 +1,6 @@
+# 結局書いてないわ
+# 次から書く
+
 class Movie
   REGULAR = 0
   NEW_RELEASE = 1
@@ -35,6 +38,8 @@ class Customer
     @rentals.each do |element|
     end
     # ~
+    # => 処理は内容毎に関数に書き出す
+    # => 一時変数も関数化できればやる
   end
 
   def amount_for(amount)
