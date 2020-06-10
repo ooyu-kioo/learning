@@ -38,9 +38,12 @@ class MountainBike
     end
   end
 end
+# client
+bike = MOuntainBike.new
+bike.type_code = :front_suspension
 
 ⬇︎
-# 
+# FrontとFullをmodule化してextendでMountainに取り込むことで、methodをポリモーフィズムにする
 
 class MountainBike
   attr_reader :type_code
@@ -51,28 +54,40 @@ class MountainBike
   end
 
   def type_code=(value)
-    type_code = value
+    @type_code = value
+    case type_code
+      when :front_suspension: extend(FrontSuspensionMountainBike)
+      when :full_suspension: extend(FullSuspensionMountainBike)
+    end
   end
 
   def off_road_ability
-    result = @tire_width * TIRE_WIDTH_FACTOR
-    if type_code == :front_suspension || type_code == :full_suspension
-      〜
-    end
-    if type_code == :full_suspension
-      〜
-    end
-    result
+    〜
   end
 
   def price
-    case type_code
-    when :rigid
-      〜
-    when :front_suspension
-      〜
-    when :full_suspension
-      〜
-    end
+    〜
   end
 end
+
+module FrontSuspensionMountainBike
+  def price
+    〜
+  end
+  def off_road_ability
+    〜
+  end
+end
+
+module FullSuspensionMountainBike
+  def price
+    〜
+  end
+  def off_road_ability
+    〜
+  end
+end
+
+# client
+bike = MountainBike.new
+bike.type_code = FrontSuspensionMountainBike
